@@ -1,0 +1,19 @@
+{
+  "EVOUPDATE": {
+    "Code": "EVOUPDATE",
+    "GoldReward": 1000,
+    "CardReward": "",
+    "MaxUses": 100,
+    "UsedCount": 5,
+    "Created": "2026-03-07T16:48:48.1999013Z",
+    "Expires": null,
+    "CreatedBy": 7690604299,
+    "UsedBy": [
+      7690604299,
+      7653854463,
+      5946728255,
+      8313677056,
+      6465312088
+    ]
+  }
+}

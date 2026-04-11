@@ -1,0 +1,39 @@
+{
+  "8449358789": {
+    "UserId": 8449358789,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  },
+  "8313677056": {
+    "UserId": 8313677056,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  },
+  "1439201299": {
+    "UserId": 1439201299,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  },
+  "5072903681": {
+    "UserId": 5072903681,
+    "CardIds": [
+      "rare:Пирожки.png"
+    ],
+    "FavoriteCardId": "rare:Пирожки.png"
+  },
+  "5255335734": {
+    "UserId": 5255335734,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  },
+  "6362646355": {
+    "UserId": 6362646355,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  },
+  "6151820951": {
+    "UserId": 6151820951,
+    "CardIds": [],
+    "FavoriteCardId": ""
+  }
+}
