@@ -1,12 +1,14 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Text;
+using DotNetEnv;
 using Newtonsoft.Json;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using static Program;
 
 // ============================
 // КЛАСС ДЛЯ РАБОТЫ С СООБЩЕНИЯМИ
@@ -14,7 +16,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 public class MessageManager
 {
-    private static readonly string _messagesFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Messages\messages.json";
+    private static readonly string _messagesFile = Path.Combine(Paths.Messages, "messages.json");
     private static Dictionary<string, string> _messages;
     private static readonly object _lock = new object();
 
@@ -79,35 +81,32 @@ public class Program
 {
     private static TelegramBotClient? _bot;
     private static ConcurrentDictionary<long, UserData>? _users;
-    private static readonly string _usersFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\users.json";
-    private static readonly string _configFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\config.json";
-    private static readonly string _userCardsFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\usercards.json";
-    private static readonly string _userDecksFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\userdecks.json";
-    private static readonly string _adminsFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\admins.json";
-    private static readonly string _promoCodesFile = "C:\\C#\\CardsTelegramBotPirozki\\CardsTelegramBotPirozki\\Data\\promocodes.json";
-    private static readonly string _userGemsFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Data\usergems.json";
-    private static readonly string _topicSettingsFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Data\topic_settings.json";
-    private static readonly string _userChestStatsFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Data\usercheststats.json";
-    private static readonly string _evolutionsFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Data\evolutions.json";
+    private static readonly string _messagesFile = Path.Combine(Paths.Messages, "messages.json");
+    private static readonly string _usersFile = Path.Combine(Paths.Data, "users.json");
+    private static readonly string _configFile = Path.Combine(Paths.Data, "config.json");
+    private static readonly string _userCardsFile = Path.Combine(Paths.Data, "usercards.json");
+    private static readonly string _userDecksFile = Path.Combine(Paths.Data, "userdecks.json");
+    private static readonly string _adminsFile = Path.Combine(Paths.Data, "admins.json");
+    private static readonly string _promoCodesFile = Path.Combine(Paths.Data, "promocodes.json");
+    private static readonly string _userGemsFile = Path.Combine(Paths.Data, "usergems.json");
+    private static readonly string _topicSettingsFile = Path.Combine(Paths.Data, "topic_settings.json");
+    private static readonly string _userChestStatsFile = Path.Combine(Paths.Data, "usercheststats.json");
+    private static readonly string _evolutionsFile = Path.Combine(Paths.Data, "evolutions.json");
+    private static readonly string _userEvolutionsFile = Path.Combine(Paths.Data, "userevolutions.json");
     private static ConcurrentDictionary<string, EvolutionData> _evolutions = new ConcurrentDictionary<string, EvolutionData>();
     private static ConcurrentDictionary<long, UserEvolutionsData> _userEvolutions = new ConcurrentDictionary<long, UserEvolutionsData>();
-    private static readonly string _userEvolutionsFile = @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Data\userevolutions.json";
 
     private const int CHEST_LIMIT_PER_HOUR = 3;
     private static ConcurrentDictionary<long, UserChestStats> _userChestStats;
     private static ConcurrentDictionary<long, int> _userGems; // ID пользователя -> количество гемов
 
-    public class MuteInfo
+    public static class Paths
     {
-        public long ChatId { get; set; }
-        public long UserId { get; set; }
-        public string Username { get; set; }
-        public DateTime MutedAt { get; set; }
-        public DateTime UntilDate { get; set; }
-        public long MutedBy { get; set; }
-        public string MutedByName { get; set; }
-        public int DurationMinutes { get; set; }
-        public bool NotificationSent { get; set; }
+        public static string BaseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+        public static string Data => Path.Combine(BaseDir, "Data");
+        public static string Messages => Path.Combine(BaseDir, "Messages");
+        public static string Images => Path.Combine(BaseDir, "Images");
     }
 
     public class UserChestStats
@@ -201,14 +200,14 @@ public class Program
     // ПОЛНЫЕ ПУТИ К ПАПКАМ
     private static readonly Dictionary<string, string> _imageFolders = new Dictionary<string, string>
 {
-    { "common", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\common" },
-    { "rare", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\rare" },
-    { "epic", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\epic" },
-    { "legendary", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\legendary" },
-    { "champion", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\champion" },
-    { "evolution", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\evolution" },
-    { "exclusive", @"C:\C#\CardsTelegramBotPirozki\CardsTelegramBotPirozki\Images\exclusive" }
-    };
+    { "common", Path.Combine(Paths.Images, "common") },
+    { "rare", Path.Combine(Paths.Images, "rare") },
+    { "epic", Path.Combine(Paths.Images, "epic") },
+    { "legendary", Path.Combine(Paths.Images, "legendary") },
+    { "champion", Path.Combine(Paths.Images, "champion") },
+    { "evolution", Path.Combine(Paths.Images, "evolution") },
+    { "exclusive", Path.Combine(Paths.Images, "exclusive") }
+};
 
     // Редкости карт как в Clash Royale + вес для расчета ранга
     private static readonly Dictionary<string, (int gold, string emoji, string name, int weight)> _rarities = new Dictionary<string, (int, string, string, int)>
@@ -235,6 +234,11 @@ public class Program
     {
         try
         {
+            string envPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../.env");
+            if (File.Exists(envPath))
+                DotNetEnv.Env.Load(envPath);
+            else
+                DotNetEnv.Env.Load();
             // Устанавливаем кодировку консоли для поддержки русского языка
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
@@ -559,6 +563,9 @@ public class Program
                 {
                     var json = File.ReadAllText(_configFile);
                     var config = JsonConvert.DeserializeObject<BotConfig>(json) ?? new BotConfig();
+
+                    if (!string.IsNullOrEmpty(DotNetEnv.Env.GetString("BOT_TOKEN")))
+                        config.BotToken = DotNetEnv.Env.GetString("BOT_TOKEN");
 
                     if (!string.IsNullOrEmpty(config.BotToken) && !config.BotToken.Contains(':'))
                     {
