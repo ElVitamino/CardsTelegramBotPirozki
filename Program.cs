@@ -96,11 +96,6 @@ public class Program
     private const int CHEST_LIMIT_PER_HOUR = 3;
     private static ConcurrentDictionary<long, UserChestStats> _userChestStats;
     private static ConcurrentDictionary<long, int> _userGems; // ID пользователя -> количество гемов
-    private static Timer _muteCheckTimer;
-    private static Dictionary<long, Dictionary<long, DateTime>> _activeMutes = new();
-
-    private static List<MuteInfo> _activeMutesList = new();
-    private static readonly string MutesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "C:\\C#\\Iris_Podval_bot\\Iris_Podval_bot\\active_mutes.json");
 
     public class MuteInfo
     {
