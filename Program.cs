@@ -302,18 +302,7 @@ public class Program
             // Кэшируем списки файлов
             CacheImageFiles();
 
-            var proxy = new WebProxy("https://217.29.209.22:8865");
-
-            var httpClientHandler = new HttpClientHandler
-            {
-                Proxy = proxy,
-                UseProxy = true,
-            };
-
-            var httpClient = new HttpClient(httpClientHandler);
-            _bot = new TelegramBotClient(config.BotToken, httpClient);
-
-            Console.WriteLine("✅ Настроен прокси: 193.221.203.192:1080");
+            _bot = new TelegramBotClient(config.BotToken;
 
             Console.WriteLine("\n=== ПОДКЛЮЧЕНИЕ К TELEGRAM ===");
             var me = await _bot.GetMe();
